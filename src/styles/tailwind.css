@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        @apply bg-blue-500 text-white py-2 px-4 focus:outline-none hover:bg-blue-600 rounded-lg;
+    }
+
+    a,
+    button {
+        @apply focus:outline-none focus:ring-2 ring-opacity-50 ring-blue1 ring-offset-primary-light dark:ring-offset-primary-dark ring-offset-0;
+    }
+
+    body {
+        @apply bg-primary;
+    }
+
+    input:-webkit-autofill {
+        @apply ring-1 ring-blue1 ring-opacity-50 focus:ring-2 focus:ring-blue1 focus:ring-opacity-100;
+    }
+
+    input:autofill {
+        @apply ring-1 ring-blue1 ring-opacity-50 focus:ring-2 focus:ring-blue1 focus:ring-opacity-100;
+    }
+}
+
+body.dark {
+    @apply bg-primary-dark;
+}
+
+.profile-input {
+    @apply border-b border-bd px-12 py-7 flex items-center;
+}
+
+.offset {
+    @apply ring-offset-primary-light dark:ring-offset-primary-dark;
+}
+
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}

@@ -1,0 +1,48 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "jest": true,
+        "es6": true
+    },
+    "extends": ["airbnb", "airbnb/hooks", "prettier", "prettier/react"],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["src/", "node_modules"]
+            }
+        }
+    },
+    "rules": {
+        "consistent-return": "warn",
+        "no-plusplus": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "import/prefer-default-export": "off",
+        "react/react-in-jsx-scope": "off",
+        "arrow-body-style": "off",
+        "no-unused-vars": "warn",
+        "jsx-a11y/label-has-associated-control": [
+            2,
+            {
+                "assert": "either",
+                "depth": 3
+            }
+        ]
+    },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "modules": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    }
+}
