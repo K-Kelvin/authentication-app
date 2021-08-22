@@ -11,7 +11,7 @@ import {
 } from "react-icons/md";
 import AppLogo from "components/AppLogo";
 import ToggleDarkMode from "components/ToggleDarkMode";
-// import handleImgError from "helpers/handleImgError";
+import { Fallback } from "helpers/handleImgError";
 import useOnClickOutside from "hooks/use-on-click-outside";
 import { useUser } from "context/user";
 
@@ -39,14 +39,17 @@ const Header = () => {
                 tabIndex="0"
                 ref={dropdownRef}
             >
-                <img
-                    src={photoURL}
-                    alt=" "
-                    className="w-8 h-8 rounded bg-bd"
-                    // onError={handleImgError}
-                />
+                {photoURL ? (
+                    <img
+                        src={photoURL}
+                        alt=" "
+                        className="w-8 h-8 rounded bg-bd"
+                    />
+                ) : (
+                    <Fallback />
+                )}
                 <span className="flex-grow-0 flex-shrink-0 block font-bold text-xs max-w-[110px] overflow-hidden overflow-ellipsis whitespace-nowrap mobile:hidden">
-                    {displayName}
+                    {displayName || "-"}
                 </span>
                 <Arrow className="w-4 h-4 mobile:hidden" />
                 <Dropdown show={showDropdown} />

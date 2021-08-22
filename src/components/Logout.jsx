@@ -7,9 +7,11 @@ const Logout = () => {
     const [message, setMessage] = useState("Logging out...");
 
     useEffect(() => {
+        document.title = "Logout";
         logoutUser()
             .then(() => {
                 setLoggedOut(true);
+                localStorage.clear();
                 setMessage("Successfully logged out");
             })
             .catch(error => {

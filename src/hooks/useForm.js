@@ -20,7 +20,7 @@ const useForm = (route = "/login") => {
             .then(res => {
                 setData(res.data);
             })
-            .then(setError);
+            .catch(setError);
     };
     return { state, onChange, onSubmit, data, error };
 };

@@ -58,7 +58,7 @@ const EditProfile = () => {
                                 Change profile photo
                             </label>
                             <img
-                                src={user.photoURL}
+                                src={user.photoURL || null}
                                 alt=" "
                                 ref={imageRef}
                                 className="rounded w-[72px] h-[72px] object-cover object-center"

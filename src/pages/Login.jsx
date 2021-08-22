@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 
 import useForm from "hooks/useForm";
@@ -9,6 +9,7 @@ import { useUser } from "context/user";
 import loginUser from "utils/loginUser";
 
 const Login = () => {
+    const [loading, setLoading] = useState(false);
     const { onChange, state } = useForm("/login");
     const user = useUser();
     const history = useHistory();
@@ -25,11 +26,15 @@ const Login = () => {
             alert("Email and password fields are required!");
             return;
         }
+        if (loading) return;
+        setLoading(true);
         loginUser(email, password)
             .then(() => {
+                setLoading(false);
                 history.push("/u");
             })
             .catch(() => {
+                setLoading(false);
                 // eslint-disable-next-line no-alert
                 alert("Invalid email or password!");
             });
