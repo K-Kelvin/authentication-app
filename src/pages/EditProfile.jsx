@@ -5,18 +5,13 @@ import {
     MdPhotoCamera as CameraIcon,
 } from "react-icons/md";
 import useForm from "hooks/useForm";
+import { useUser } from "context/user";
 
-const userProfile = {
-    name: "Xanthe Neal",
-    image: "",
-    bio: "I am a software developer and a big fan of devchallenges...",
-    phone: "908249274292",
-    email: "xanthe.neal@gmail.com",
-};
 const EditProfile = () => {
     const history = useHistory();
     const { onSubmit, onChange } = useForm("/profile");
     const imageRef = useRef();
+    const user = useUser();
     return (
         <>
             <button
@@ -47,6 +42,7 @@ const EditProfile = () => {
                                     if (e.target.files !== 0) {
                                         onChange(e);
                                         const file = e.target.files[0];
+                                        if (!file) return;
                                         imageRef.current.src =
                                             URL.createObjectURL(file);
                                         imageRef.current.style.visibility =
@@ -62,7 +58,7 @@ const EditProfile = () => {
                                 Change profile photo
                             </label>
                             <img
-                                src={userProfile.image}
+                                src={user.photoURL}
                                 alt=" "
                                 ref={imageRef}
                                 className="rounded w-[72px] h-[72px] object-cover object-center"
@@ -85,7 +81,7 @@ const EditProfile = () => {
                                 id="name"
                                 placeholder="Enter your name..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={userProfile.name}
+                                defaultValue={user.displayName}
                                 onChange={onChange}
                             />
                         </label>
@@ -99,7 +95,7 @@ const EditProfile = () => {
                                 placeholder="Enter your bio..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
                                 rows={3}
-                                defaultValue={userProfile.bio}
+                                defaultValue={user.bio}
                                 onChange={onChange}
                             />
                         </label>
@@ -113,7 +109,7 @@ const EditProfile = () => {
                                 id="phone"
                                 placeholder="Enter your phone..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={userProfile.phone}
+                                defaultValue={user.phoneNumber}
                                 onChange={onChange}
                             />
                         </label>
@@ -127,7 +123,7 @@ const EditProfile = () => {
                                 id="email"
                                 placeholder="Enter your email..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={userProfile.email}
+                                defaultValue={user.email}
                                 onChange={onChange}
                             />
                         </label>

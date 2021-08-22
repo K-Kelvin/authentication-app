@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { ThemeProvider } from "./hooks/useTheme";
-import ToggleDarkMode from "./components/ToggleDarkMode";
-import { Login, Register } from "./pages/auth";
-import Home from "./pages/home";
-import Index from "./pages/app/Index";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Index from "./pages/Index";
 import Logout from "./components/Logout";
+import ToggleDarkMode from "./components/ToggleDarkMode";
 import ProtectedRoute from "./helpers/protectedRoute";
 
 const App = () => {

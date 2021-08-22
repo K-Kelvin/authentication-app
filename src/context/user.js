@@ -1,3 +1,4 @@
+import { firebase } from "utils/init";
 import useAuthListener from "hooks/useAuthListener";
 import { createContext } from "react";
 
@@ -12,7 +13,8 @@ const UserProvider = ({ children }) => {
 
 export const useUser = () => {
     const { user } = useAuthListener();
-    return user;
+    return user || firebase.auth().currentUser;
 };
 
 export default UserProvider;
+

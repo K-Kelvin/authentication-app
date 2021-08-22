@@ -5,10 +5,9 @@ function loginUser(email, password) {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .catch(error => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // eslint-disable-next-line no-console
-            console.log(errorCode, errorMessage);
+            const { code, message } = error;
+            // eslint-disable-next-line no-alert
+            if (code) alert(message);
         });
 }
 

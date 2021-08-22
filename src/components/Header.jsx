@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
     AiFillCaretDown as CaretDown,
@@ -11,16 +11,21 @@ import {
 } from "react-icons/md";
 import AppLogo from "components/AppLogo";
 import ToggleDarkMode from "components/ToggleDarkMode";
-import handleImgError from "helpers/handleImgError";
+// import handleImgError from "helpers/handleImgError";
+import useOnClickOutside from "hooks/use-on-click-outside";
+import { useUser } from "context/user";
 
-const user = {
-    id: "aj46dnjd79",
-    name: "Xanthe Neal",
-    imgUrl: "/sdsd",
-};
 const Header = () => {
     const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef();
+    const usr = useUser();
+    const displayName = usr?.displayName;
+    const photoURL = usr?.photoURL;
+
     const Arrow = showDropdown ? CaretUp : CaretDown;
+    useOnClickOutside(dropdownRef, () => {
+        setShowDropdown(false);
+    });
     return (
         <header className="p4 md:px-20 md:py-6 flex justify-between items-center text-secondary dark:text-secondary-dark">
             <AppLogo />
@@ -32,15 +37,16 @@ const Header = () => {
                     if (e.key === "Enter") setShowDropdown(p => !p);
                 }}
                 tabIndex="0"
+                ref={dropdownRef}
             >
                 <img
-                    src={user.imgUrl}
+                    src={photoURL}
                     alt=" "
-                    className="w-8 h-8 rounded"
-                    onError={handleImgError}
+                    className="w-8 h-8 rounded bg-bd"
+                    // onError={handleImgError}
                 />
                 <span className="flex-grow-0 flex-shrink-0 block font-bold text-xs max-w-[110px] overflow-hidden overflow-ellipsis whitespace-nowrap mobile:hidden">
-                    {user.name}
+                    {displayName}
                 </span>
                 <Arrow className="w-4 h-4 mobile:hidden" />
                 <Dropdown show={showDropdown} />

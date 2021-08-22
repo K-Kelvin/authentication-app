@@ -20,9 +20,19 @@ const Login = () => {
     const onSubmit = e => {
         e.preventDefault();
         const { email, password } = state;
-        loginUser(email, password).then(() => {
-            history.push("/u");
-        });
+        if (!email || !password) {
+            // eslint-disable-next-line no-alert
+            alert("Email and password fields are required!");
+            return;
+        }
+        loginUser(email, password)
+            .then(() => {
+                history.push("/u");
+            })
+            .catch(() => {
+                // eslint-disable-next-line no-alert
+                alert("Invalid email or password!");
+            });
     };
 
     if (user) return <Redirect to="/u" />;

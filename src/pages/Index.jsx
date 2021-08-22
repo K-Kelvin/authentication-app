@@ -1,7 +1,7 @@
 import { Switch, Route } from "react-router-dom";
 
 import CreatedBy from "components/CreatedBy";
-import Header from "./Header";
+import Header from "components/Header";
 import EditProfile from "./EditProfile";
 import Profile from "./Profile";
 

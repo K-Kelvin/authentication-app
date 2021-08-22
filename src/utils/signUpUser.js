@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
-import { firebase } from "./init";
+import { db, firebase } from "./init";
 
 function signUpUser(email, password) {
     return firebase
@@ -15,6 +15,40 @@ function signUpUser(email, password) {
                 alert(errorMessage);
             }
             console.log(error);
+        });
+}
+
+export function createUser(user) {
+    const newUser = {
+        username: user.email,
+        displayName: user.displayName,
+        email: user.email,
+        photoUrl: user.photoURL,
+        bio: "",
+        phone: user.phoneNumber,
+    };
+    db.collection("users")
+        .doc(newUser.username)
+        .add(newUser)
+        .then(docRef => {
+            console.log("Document written with ID: ", docRef.id);
+            return {
+                id: docRef.id,
+                ...newUser,
+            };
+        })
+        .catch(error => {
+            console.error("Error adding document: ", error);
+        });
+}
+
+export function getAllUsers() {
+    db.collection("users")
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                console.log(`${doc.id} => ${doc.data()}`);
+            });
         });
 }
 

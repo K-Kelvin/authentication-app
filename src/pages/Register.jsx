@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -5,7 +6,7 @@ import useForm from "hooks/useForm";
 import Form, { FormWrapper } from "components/Form";
 import AppLogo from "components/AppLogo";
 import CreatedBy from "components/CreatedBy";
-import signUpUser from "utils/signUpUser";
+import signUpUser, { createUser } from "utils/signUpUser";
 
 const Register = () => {
     const { onChange, state } = useForm("/register");
@@ -19,8 +20,9 @@ const Register = () => {
         e.preventDefault();
         const { email, password } = state;
         if (!email || !password) return;
-        signUpUser(email, password).then(userCredential => {
-            const { user } = userCredential;
+        signUpUser(email, password).then(async userCredential => {
+            const { user: user_ } = userCredential;
+            const user = await createUser(user_);
             // eslint-disable-next-line no-console
             console.log(user);
             history.push("/u");

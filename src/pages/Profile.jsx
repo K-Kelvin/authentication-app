@@ -1,6 +1,14 @@
+import { useUser } from "context/user";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
+    const {
+        displayName: name,
+        email,
+        phoneNumber: phone,
+        photoURL,
+        bio,
+    } = useUser();
     return (
         <>
             <h1 className="text-3xl font-normal mb-2 text-center">
@@ -31,9 +39,9 @@ const Profile = () => {
                     <p className="uppercase w-1/4 font-medium text-sm text-bd">
                         Photo
                     </p>
-                    <div className="rounded-lg w-[72px] h-[72px] bg-bd">
+                    <div className="rounded-lg w-[72px] h-[72px] bg-bd overflow-hidden">
                         <img
-                            src="/x"
+                            src={photoURL}
                             alt=" "
                             className="w-full h-full rounded-lg"
                             onError={e => {
@@ -46,28 +54,28 @@ const Profile = () => {
                     <p className="uppercase w-1/4 font-medium text-sm text-bd">
                         Name
                     </p>
-                    <p className="w-3/4">Xanthe Neal</p>
+                    <p className="w-3/4">{name || "-"}</p>
                 </div>
                 <div className="profile-input">
                     <p className="uppercase w-1/4 font-medium text-sm text-bd">
                         Bio
                     </p>
                     <p className="w-3/4">
-                        I am a software developer and a big fan of
-                        devchallenges...
+                        {/* `I am a software developer and a big fan of devchallenges...` */}
+                        {bio || "-"}
                     </p>
                 </div>
                 <div className="profile-input">
                     <p className="uppercase w-1/4 font-medium text-sm text-bd">
                         Phone
                     </p>
-                    <p className="w-3/4">908249274292</p>
+                    <p className="w-3/4">{phone || "-"}</p>
                 </div>
                 <div className="profile-input">
                     <p className="uppercase w-1/4 font-medium text-sm text-bd">
                         Email
                     </p>
-                    <p className="w-3/4">xanthe.neal@gmail.com</p>
+                    <p className="w-3/4">{email || "-"}</p>
                 </div>
                 <div className="profile-input !border-b-0">
                     <p className="uppercase w-1/4 font-medium text-sm text-bd">

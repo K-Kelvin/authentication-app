@@ -6,6 +6,10 @@ import {
     FaTwitter,
     FaGithub,
 } from "react-icons/fa";
+import googleSignin from "utils/googleSignin";
+import githubSignin from "utils/githubSignin";
+import facebookSignin from "utils/facebookSignin";
+import twitterSignin from "utils/twitterSignin";
 
 export const FormWrapper = ({ children }) => (
     <div className="min-h-screen md:grid md:place-items-center bg-primary dark:bg-primary-dark">
@@ -62,24 +66,24 @@ Form.Submit = ({ text = "" }) => (
 );
 
 const socialAuth = [
-    { icon: <FaGoogle />, link: "https://google.com" },
-    { icon: <FaFacebook />, link: "https://facebook.com" },
-    { icon: <FaTwitter />, link: "https://twitter.com" },
-    { icon: <FaGithub />, link: "https://github.com" },
+    { id: 1, icon: <FaGoogle />, onClick: googleSignin },
+    { id: 2, icon: <FaFacebook />, onClick: facebookSignin },
+    { id: 3, icon: <FaTwitter />, onClick: twitterSignin },
+    { id: 4, icon: <FaGithub />, onClick: githubSignin },
 ];
 Form.Footer = ({ login = true }) => (
     <div className="flex flex-col items-center gap-5 text-sm">
         <p>or continue with these social profiles</p>
         <div className="flex gap-3 -mb-1">
-            {socialAuth.map(({ icon, link }) => (
-                <a
-                    key={link}
-                    href={link}
+            {socialAuth.map(({ id, icon, onClick }) => (
+                <button
+                    type="button"
+                    key={id}
                     className="rounded-full border border-current w-10 h-10 grid place-items-center ring-current"
-                    target="blank"
+                    onClick={onClick}
                 >
                     {icon}
-                </a>
+                </button>
             ))}
         </div>
         {login ? (
