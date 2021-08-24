@@ -4,15 +4,7 @@ import firebase from "firebase/app";
 import { db, FieldValue } from "./init";
 
 // ✨TODO LIST✨
-// ✅create user profile in the database
-// ✅get current authenticated user from localStorage or database
-// ✅get user by id from the database
-// ✅update user in the database
-// ✅get all users in the database
-// ✅delete a user from the database
-
-// AFTER
-// Make sure timestamp shows appropriately!!!
+// ❌Make sure timestamp shows appropriately!!!
 export function createUser(user) {
     const newUser = {
         username: user.email,
@@ -51,8 +43,13 @@ export function getCurrentUser() {
                 .doc(userId)
                 .get()
                 .then(doc => {
-                    if (doc.exists) user = doc.data();
-                    else alert("User does not exist");
+                    if (doc.exists) {
+                        user = doc.data();
+                        localStorage.setItem(
+                            "current_auth_user",
+                            JSON.stringify(user)
+                        );
+                    } else alert("User does not exist");
                 })
                 .catch(console.log);
         }
@@ -86,10 +83,22 @@ export function updateUser(userId, data) {
     return new Promise(_);
 }
 export function updateCurrentUser(data) {
-    const userId = firebase.auth().currentUser?.uid;
-    updateUser(userId, data).then(user => {
-        localStorage.setItem("current_auth_user", JSON.stringify(user));
-    });
+    const { currentUser } = firebase.auth();
+    const userId = currentUser?.uid;
+    const { displayName, photoUrl } = data;
+    const _ = (resolve, reject) => {
+        if (displayName)
+            currentUser.updateProfile({ displayName }).catch(reject);
+        if (photoUrl)
+            currentUser.updateProfile({ photoURL: photoUrl }).catch(reject);
+        updateUser(userId, data)
+            .then(user => {
+                localStorage.setItem("current_auth_user", JSON.stringify(user));
+                resolve(user);
+            })
+            .catch(reject);
+    };
+    return new Promise(_);
 }
 export function getAllUsers() {
     function _(resolve, reject) {
@@ -112,4 +121,7 @@ export function deleteCurrentUser() {
             .catch(reject);
     }
     return new Promise(_);
+}
+export function changePassword(newPassword) {
+    return firebase.auth().currentUser.updatePassword(newPassword);
 }

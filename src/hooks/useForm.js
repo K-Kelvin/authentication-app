@@ -22,7 +22,7 @@ const useForm = (route = "/login") => {
             })
             .catch(setError);
     };
-    return { state, onChange, onSubmit, data, error };
+    return { state, setState, onChange, onSubmit, data, error };
 };
 
 export default useForm;

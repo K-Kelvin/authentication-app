@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { useRef } from "react";
 import { useHistory } from "react-router-dom";
 import {
@@ -6,12 +7,28 @@ import {
 } from "react-icons/md";
 import useForm from "hooks/useForm";
 import { useUser } from "context/user";
+import { changePassword, updateCurrentUser } from "utils/firebaseUserActions";
 
 const EditProfile = () => {
     const history = useHistory();
-    const { onSubmit, onChange } = useForm("/profile");
+    const { state, setState, onChange } = useForm("/profile");
     const imageRef = useRef();
     const user = useUser();
+    const formRef = useRef();
+
+    const onSubmit = e => {
+        e.preventDefault();
+        updateCurrentUser(state).then(() => {
+            alert("User updated successfully!");
+            if (state.password) {
+                changePassword(state.password)
+                    .then(() => alert("Password changed successfully!"))
+                    .catch(() => alert("Failed to change password!"));
+            }
+            setState({});
+            formRef.current.reset();
+        });
+    };
     return (
         <>
             <button
@@ -29,7 +46,7 @@ const EditProfile = () => {
                 <p className="text-bd text-sm mb-6">
                     Changes will be reflected to every services
                 </p>
-                <form onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} ref={formRef}>
                     <div className="mb-8 flex items-center gap-7">
                         <div className="relative rounded w-[72px] h-[72px] bg-bd overflow-hidden">
                             <input
@@ -58,7 +75,7 @@ const EditProfile = () => {
                                 Change profile photo
                             </label>
                             <img
-                                src={user.photoURL || null}
+                                src={user.photoURL || user.photoUrl || null}
                                 alt=" "
                                 ref={imageRef}
                                 className="rounded w-[72px] h-[72px] object-cover object-center"
@@ -109,7 +126,7 @@ const EditProfile = () => {
                                 id="phone"
                                 placeholder="Enter your phone..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={user.phoneNumber}
+                                defaultValue={user.phoneNumber || user.phone}
                                 onChange={onChange}
                             />
                         </label>
@@ -137,7 +154,7 @@ const EditProfile = () => {
                                 id="password"
                                 placeholder="Enter your new password..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                onChange={onChange}
+                                // onChange={onChange}
                             />
                         </label>
                     </div>
