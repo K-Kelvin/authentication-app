@@ -79,7 +79,7 @@ const EditProfile = () => {
                                 Change profile photo
                             </label>
                             <img
-                                src={user.photoURL || user.photoUrl || null}
+                                src={user?.photoURL || user?.photoUrl || null}
                                 alt=" "
                                 ref={imageRef}
                                 className="rounded w-[72px] h-[72px] object-cover object-center"
@@ -102,7 +102,7 @@ const EditProfile = () => {
                                 id="name"
                                 placeholder="Enter your name..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={user.displayName}
+                                defaultValue={user?.displayName}
                                 onChange={onChange}
                             />
                         </label>
@@ -116,7 +116,7 @@ const EditProfile = () => {
                                 placeholder="Enter your bio..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
                                 rows={3}
-                                defaultValue={user.bio}
+                                defaultValue={user?.bio}
                                 onChange={onChange}
                             />
                         </label>
@@ -130,7 +130,7 @@ const EditProfile = () => {
                                 id="phone"
                                 placeholder="Enter your phone..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={user.phoneNumber || user.phone}
+                                defaultValue={user?.phoneNumber || user?.phone}
                                 onChange={onChange}
                             />
                         </label>
@@ -144,7 +144,7 @@ const EditProfile = () => {
                                 id="email"
                                 placeholder="Enter your email..."
                                 className="rounded-xl border border-gray-82 text-82 placeholder-bd text-base px-4 py-3 w-full bg-transparent focus:outline-none focus:border-blue1 ring-blue1 focus:ring-1"
-                                defaultValue={user.email}
+                                defaultValue={user?.email}
                                 onChange={onChange}
                             />
                         </label>

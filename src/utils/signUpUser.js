@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-alert */
+import { createUser } from "utils/firebaseUserActions";
 import { db, firebase } from "./init";
 
+/*
 export function createUser(user) {
     const newUser = {
         username: user.email,
@@ -22,6 +24,7 @@ export function createUser(user) {
     }
     return new Promise(_);
 }
+*/
 
 function signUpUser(email, password) {
     function _(resolve, reject) {

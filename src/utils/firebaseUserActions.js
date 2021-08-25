@@ -13,14 +13,14 @@ export function createUser(user) {
         photoUrl: user.photoURL,
         bio: "",
         phone: user.phoneNumber,
-        timestamp: FieldValue.serverTimestamp(),
     };
     // eslint-disable-next-line no-unused-vars
     const userCreated = (resolve, reject) => {
         db.collection("users")
-            .add(newUser)
+            .doc(newUser.email)
+            .set(newUser)
             .then(docRef => {
-                console.log("Document written with ID: ", docRef.id);
+                console.log("Document created successfully!");
                 resolve(docRef.data());
             })
             .catch(error => {
@@ -71,7 +71,7 @@ export function getUserById(uid) {
     return new Promise(_);
 }
 export function updateUser(userId, data) {
-    const userRef = db.collection("users").doc(userId);
+    const userRef = db.collection("users").doc(data?.email);
     const _ = (resolve, reject) => {
         userRef
             .update(data)
@@ -85,7 +85,7 @@ export function updateUser(userId, data) {
 export function updateCurrentUser(data) {
     const { currentUser } = firebase.auth();
     const userId = currentUser?.uid;
-    const { displayName, photoUrl } = data;
+    const { name: displayName, photoUrl } = data;
     const _ = (resolve, reject) => {
         if (displayName)
             currentUser.updateProfile({ displayName }).catch(reject);
