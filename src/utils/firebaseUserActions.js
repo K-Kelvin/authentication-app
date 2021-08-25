@@ -49,9 +49,9 @@ export function getCurrentUser() {
                             "current_auth_user",
                             JSON.stringify(user)
                         );
-                    } else alert("User does not exist");
+                    } else reject("User document does not exist");
                 })
-                .catch(console.log);
+                .catch(reject);
         }
         resolve(user);
     };

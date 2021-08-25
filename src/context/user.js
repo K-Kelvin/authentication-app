@@ -13,7 +13,8 @@ const UserProvider = ({ children }) => {
 
 export const useUser = () => {
     const [user, setUser] = useState(
-        JSON.parse(localStorage.getItem("current_auth_user"))
+        // JSON.parse(localStorage.getItem("current_auth_user"))
+        JSON.parse(localStorage.getItem("authUser"))
     );
 
     useEffect(() => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect, useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 
@@ -30,10 +31,12 @@ const Login = () => {
         setLoading(true);
         loginUser(email, password)
             .then(() => {
+                console.log("Log in successful");
                 setLoading(false);
                 history.push("/u");
             })
-            .catch(() => {
+            .catch(error => {
+                console.error(error);
                 setLoading(false);
                 // eslint-disable-next-line no-alert
                 alert("Invalid email or password!");

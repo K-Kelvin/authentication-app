@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import {
     MdChevronLeft as LeftIcon,
@@ -15,6 +15,10 @@ const EditProfile = () => {
     const imageRef = useRef();
     const user = useUser();
     const formRef = useRef();
+
+    useEffect(() => {
+        document.title = "Edit profile";
+    }, []);
 
     const onSubmit = e => {
         e.preventDefault();

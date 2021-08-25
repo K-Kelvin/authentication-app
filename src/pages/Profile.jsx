@@ -1,5 +1,6 @@
-import { useUser } from "context/user";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "context/user";
 
 const Profile = () => {
     const {
@@ -9,6 +10,11 @@ const Profile = () => {
         photoURL,
         bio,
     } = useUser();
+
+    useEffect(() => {
+        document.title = "User profile";
+    }, []);
+
     return (
         <>
             <h1 className="text-3xl font-normal mb-2 text-center">
