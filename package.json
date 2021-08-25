@@ -33,6 +33,7 @@
   },
   "scripts": {
     "start": "SET TAILWIND_MODE=watch&& craco start",
+    "start-linux": "TAILWIND_MODE=watch&& craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
