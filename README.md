@@ -15,15 +15,12 @@
 # To clone the repo
 git clone https://github.com/K-Kelvin/authentication-app
 
-# Navigate to client and install dependencies
-cd ./client && npm install
+# Install dependencies
+npm install
 
-### build the frontend and copy the build folder to the server folder
-npm run build && xcopy ./build ../server /e /i /y
+### run the development server(windows)
+npm start
 
-# Navigate to server and install dependencies
-cd ../server && npm install
-
-### run the development server
-npm dev-start
+### run the development server(linux)
+npm run start-linux
 ```
