@@ -4,12 +4,12 @@ import { useUser } from "context/user";
 
 const Profile = () => {
     const {
-        displayName: name,
+        displayName: name = "",
         email,
         phoneNumber: phone,
         photoURL,
-        bio,
-    } = useUser();
+        bio = "",
+    } = useUser() || {};
 
     useEffect(() => {
         document.title = "User profile";
